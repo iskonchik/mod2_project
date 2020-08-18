@@ -1,31 +1,40 @@
-import React from "react";
-import Map from "./components/Map";
+import React, { Component } from 'react';
+import './App.css';
+import Header from './components/header/header.jsx';
+import Nav from './components/navigation/nav.jsx';
+import Footer from './components/footer/footer.jsx';
+import Dashboard from './components/dashboard/dashboard.jsx';
+import Countries from './components/countries/countries.jsx';
+import AllCountries from './components/allcountries/allcountries.jsx';
+import Regions from './components/regions/regions.jsx';
+import CountryDetail from './components/countrydetail/countrydetail.jsx';
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
 
-import HomePage from './pages/HomePage';
-import UsersPage from './pages/UsersPage';
-import UserCard from './components/UserCard';
-
-function App() {
-  return (
-    <div className="App">
+class App extends Component {
+  render() {
+    return (
+      <div className="fluid-container">
+        <Header />
         <Router>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/" component={Map} />
-            <Route exact path="/users" component={UsersPage} />
-            <Route exact path="/user/:userID" component={UserCard} />
-            <Redirect to="/" />
-          </Switch>
+          <div>
+            <Nav />
+            <div className="copyArea container">
+            <Switch>
+             <Route exact path="/" component={Dashboard} />
+                <Route path="/dash" component={Dashboard} />
+                <Route path="/countries" component={Countries} />
+                <Route path="/region" component={Regions} />
+                <Route path="/country/:alpha2Code" component={CountryDetail} />
+                <Route path="/:reg" component={AllCountries} />
+              </Switch>
+            </div>
+          </div>
         </Router>
-    </div>
-  );
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;
